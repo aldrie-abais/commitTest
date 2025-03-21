@@ -1,103 +1,59 @@
-namespace TestingPlace;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using DotNetEnv;
 using MySql.Data.MySqlClient;
+using System.Windows.Forms;
 
-public partial class Form1 : Form
-{   
-      CRUDQueries crud = new CRUDQueries();
-         
-    public Form1()
-    {
-       
-         
-         InitializeComponent();
-         crud.Read();
-        
-    }
-
-    private void btnRegister_Click(object sender, EventArgs e)
+namespace BloodBankManagementSystem
 {
-    
-    string username = txtUsername.Text;
-    string password = txtPassword.Text;
-    string confirmPassword = txtConfirmPassword.Text;
-    string email = txtEmail.Text;
 
-    if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) ||
-        string.IsNullOrWhiteSpace(confirmPassword) || string.IsNullOrWhiteSpace(email))
+    public partial class Form1 : Form
     {
-        MessageBox.Show("All fields are required!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        return;
-    }
+        CRUDQueries crud = new CRUDQueries();
 
-    if (password != confirmPassword)
-    {
-        MessageBox.Show("Passwords do not match!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        return;
-    }
+        Form2 form2;
+        public Form1()
+        {
+            InitializeComponent();
+            crud.Read();
+        }
 
-    // Create a Register object
-    Register newUser = new Register(username, password, confirmPassword, email);
-    Register sqlUser = new Register(username,password,email);
-    
-    crud.Insert(sqlUser);
+        private void BRegister_Click(object sender, EventArgs e)
+        {
+            string name = Name.Text;
+            string email = Email.Text;
+            string fatherName = FatherName.Text;
+            string motherName = MotherName.Text;
 
-    // Display success message
-    MessageBox.Show($"Registration Successful!\nUsername: {newUser.Username}\nEmail: {newUser.Email}", 
-                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-}
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(email) ||
+           string.IsNullOrWhiteSpace(fatherName) || string.IsNullOrWhiteSpace(motherName))
+            {
+                MessageBox.Show("All fields are required!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-   private void btnUpdate_Click(object sender, EventArgs e)
-{
-    string username = txtUsername.Text.Trim();
-    string newEmail = txtEmail.Text.Trim();
-    string newUsername = txtNewUsername.Text.Trim();
+            Register newDonor = new Register(name, email, fatherName, motherName);
 
-    // Ensure at least one field is provided for an update
-    if (string.IsNullOrWhiteSpace(username))
-    {
-        MessageBox.Show("⚠️ Please enter the current username!", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        return;
-    }
+            crud.NewDonor(newDonor);
+            // Display success message
+            MessageBox.Show($"Registration Successful!\nUsername: {newDonor.Name}\nEmail: {newDonor.Email}",
+                            "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
-    if (string.IsNullOrWhiteSpace(newUsername) && string.IsNullOrWhiteSpace(newEmail))
-    {
-        MessageBox.Show("⚠️ Enter new details to update!", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        return;
-    }
+        private void BStock_Click(object sender, EventArgs e)
+        {
+            //myPanel.Visible = !myPanel.Visible;
 
-    // Call the UpdateUser method
-    bool success = crud.Update(username, newUsername, newEmail);
+            string bloodGroup = "A+(test)";
+            int bloodQty = 1;
 
-    if (success)
-    {
-        MessageBox.Show("✅ User updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-    }
-    else
-    {
-        MessageBox.Show("⚠️ Update failed or no changes made.", "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-    }
-}   
+            AddBloodStock addStock = new AddBloodStock();
 
-private void btnDelete_Click(object sender, EventArgs e)
-{
-    string username = txtUsername.Text.Trim(); // Assuming you have a TextBox named txtUsername
+            crud.AddStock(addStock);
 
-    if (string.IsNullOrWhiteSpace(username))
-    {
-        MessageBox.Show("⚠️ Please enter a username to delete!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        return;
-    }
+            form2 = new Form2();
 
-    bool isDeleted = crud.Delete(username);
-    if (isDeleted)
-    {
-        txtUsername.Clear(); // Clear the textbox after successful deletion
-    }
-}
-
-      private void ShowMessage(object sender, EventArgs e)
-    {
-        MessageBox.Show("Button was clicked!", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            form2.Show();
+            this.Hide();
+        }
     }
 }

@@ -35,3 +35,6 @@ C:\Users\Aldrie U. Abais\c# 2yr -2nd sem\WinForms\TestingPlace\bin\Debug\net8.0-
 C:\Users\Aldrie U. Abais\c# 2yr -2nd sem\WinForms\TestingPlace\bin\Debug\net8.0-windows\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\Aldrie U. Abais\c# 2yr -2nd sem\WinForms\TestingPlace\obj\Debug\net8.0-windows\TestingPlace.csproj.AssemblyReference.cache
 C:\Users\Aldrie U. Abais\c# 2yr -2nd sem\WinForms\TestingPlace\obj\Debug\net8.0-windows\TestingP.07B71E0C.Up2Date
+C:\Users\Aldrie U. Abais\c# 2yr -2nd sem\WinForms\TestingPlace\obj\Debug\net8.0-windows\TestingPlace.sourcelink.json
+C:\Users\Aldrie U. Abais\c# 2yr -2nd sem\WinForms\TestingPlace\obj\Debug\net8.0-windows\TestingPlace.Form1.resources
+C:\Users\Aldrie U. Abais\c# 2yr -2nd sem\WinForms\TestingPlace\obj\Debug\net8.0-windows\TestingPlace.csproj.GenerateResource.cache

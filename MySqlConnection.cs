@@ -3,13 +3,13 @@ using DotNetEnv;
 using MySql.Data.MySqlClient;
 public class connectionSql {
 
-    private string connectionString;
+    private string connectionString, connectionString2;
     private MySqlConnection conn;
 
     public MySqlConnection connectSql()
-{
-    try
     {
+        try
+        {
         Env.Load();
         Console.WriteLine("Loading .env files");
 
@@ -19,22 +19,24 @@ public class connectionSql {
         string user = Env.GetString("MYSQL_USER");
         string pass = Env.GetString("MYSQL_PASSWORD");
 
-        connectionString = $"server={server};database={db};uid={user};pwd={pass};";
-        // connectionString = $"server=localhost;database=winforms;uid=root;pwd=root;";
+            //connectionString2 = $"server={server};database={db};uid={user};pwd={pass};";
+        connectionString = $"server=localhost;database=draftdb;uid=root;pwd=root;";
 
-        conn = new MySqlConnection(connectionString);
+            //MessageBox.Show(connectionString2 + "\n" + connectionString);
 
-        //Check if connection to database is succesful
-        Console.WriteLine(conn == null ? "❌ Database connection failed!" : "✅ Database Connection successful");
-
+            conn = new MySqlConnection(connectionString);
+            //conn.Open();
+            Console.WriteLine("✅ Connection Successful!");
+            
         return conn;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Error connecting to database: " + ex.Message);
+            Console.WriteLine("Error connecting to database: " + ex.Message);
+            return null;
+        }
     }
-    catch (Exception ex)
-    {
-        Console.WriteLine("Error connecting to database: " + ex.Message);
-        return null;
-    }
-}
 
    
 }
